@@ -17,8 +17,8 @@ const int pwmChannel = 0;
 const int resolution = 8;
 int dutyCycle = 200;
 
-const char* ssid = "Tomato24";
-const char* password = "epicenterKittu";
+const char* ssid = "Tomato241";
+const char* password = "tomato241";
 
 WebServer server(80);
 
