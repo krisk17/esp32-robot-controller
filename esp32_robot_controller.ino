@@ -11,15 +11,10 @@
 #include <ESPmDNS.h>
 
 String command;             //String to store app command state.
+int speedCar = 800;         // 400 - 1023.
+int speed_Coeff = 3;
 
-const int freq = 800;
-const int pwmChannel = 0;
-const int resolution = 8;
-int dutyCycle = 200;
-
-const char* ssid = "Tomato241";
-const char* password = "tomato241";
-
+const char* ssid = "ESP32_4WDCar";
 WebServer server(80);
 
 void setup() {
@@ -30,13 +25,6 @@ void setup() {
  pinMode(IN_2, OUTPUT);
  pinMode(IN_3, OUTPUT);
  pinMode(IN_4, OUTPUT); 
-
- // configure LED PWM functionalitites
-  ledcSetup(pwmChannel, freq, resolution);
-  
-  // attach the channel to the GPIO to be controlled
-  ledcAttachPin(ENA, pwmChannel);
-  ledcAttachPin(ENB, pwmChannel);
   
   Serial.begin(115200);
   
@@ -59,81 +47,99 @@ void goAhead(){
 
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, HIGH);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, HIGH);
+      ledcWrite(ENB, speedCar);
   }
 
 void goBack(){ 
 
       digitalWrite(IN_1, HIGH);
       digitalWrite(IN_2, LOW);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, HIGH);
       digitalWrite(IN_4, LOW);
+      ledcWrite(ENB, speedCar);
   }
 
 void goRight(){ 
 
       digitalWrite(IN_1, HIGH);
       digitalWrite(IN_2, LOW);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, HIGH);
+      ledcWrite(ENB, speedCar);
   }
 
 void goLeft(){
 
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, HIGH);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, HIGH);
       digitalWrite(IN_4, LOW);
+      ledcWrite(ENB, speedCar);
   }
 
 void goAheadRight(){
       
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, HIGH);
+      ledcWrite(ENA, speedCar/speed_Coeff);
  
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, HIGH);
+      ledcWrite(ENB, speedCar);
    }
 
 void goAheadLeft(){
       
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, HIGH);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, HIGH);
+      ledcWrite(ENB, speedCar/speed_Coeff);
   }
 
 void goBackRight(){ 
 
       digitalWrite(IN_1, HIGH);
       digitalWrite(IN_2, LOW);
+      ledcWrite(ENA, speedCar/speed_Coeff);
 
       digitalWrite(IN_3, HIGH);
       digitalWrite(IN_4, LOW);
+      ledcWrite(ENB, speedCar);
   }
 
 void goBackLeft(){ 
 
       digitalWrite(IN_1, HIGH);
       digitalWrite(IN_2, LOW);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, HIGH);
       digitalWrite(IN_4, LOW);
+      ledcWrite(ENB, speedCar/speed_Coeff);
   }
 
 void stopRobot(){  
 
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, LOW);
+      ledcWrite(ENA, speedCar);
 
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, LOW);
+      ledcWrite(ENB, speedCar);
  }
 
 void loop() {
@@ -148,6 +154,16 @@ void loop() {
       else if (command == "G") goAheadLeft();
       else if (command == "J") goBackRight();
       else if (command == "H") goBackLeft();
+      else if (command == "0") speedCar = 400;
+      else if (command == "1") speedCar = 470;
+      else if (command == "2") speedCar = 540;
+      else if (command == "3") speedCar = 610;
+      else if (command == "4") speedCar = 680;
+      else if (command == "5") speedCar = 750;
+      else if (command == "6") speedCar = 820;
+      else if (command == "7") speedCar = 890;
+      else if (command == "8") speedCar = 960;
+      else if (command == "9") speedCar = 1023;
       else if (command == "S") stopRobot();
 }
 
