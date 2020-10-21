@@ -4,17 +4,16 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>
-
 //Motor A
-const int inputPin1  = 12;    // Pin 15 of L293D IC, D1 Pin of NodeMCU
-const int inputPin2  = 13;    // Pin 10 of L293D IC, D0 Pin of NodeMCU
+const int inputPin1  = 12;    // Pin 12 of L298N IC, D1 Pin of ESP32
+const int inputPin2  = 13;    // Pin 12 of L298N IC, D0 Pin of ESP32
 //Motor B
-const int inputPin3  = 21;    // Pin  7 of L293D IC, D2 Pin of NodeMCU
-const int inputPin4  = 22;    // Pin  2 of L293D IC, D3 Pin of NodeMCU
-int EN1 = 23;                 // Pin 1 of L293D IC, D6 Pin of NodeMCU
-int EN2 = 14;                 // Pin 9 of L293D IC, D5 Pin of NodeMCU
+const int inputPin3  = 21;    // Pin  21 of L298N IC, D2 Pin of ESP32
+const int inputPin4  = 22;    // Pin  22 of L298N IC, D3 Pin of ESP32
+int EN1 = 14;                 // Pin 14 of L298N IC, D6 Pin of ESP32
+int EN2 = 23;                 // Pin 23 of L298N IC, D5 Pin of ESP32
 // Led Light Pin
-const int Ledpin = 10;
+const int Ledpin = 2;
 //---------------
 
 // You should get Auth Token in the Blynk App.
