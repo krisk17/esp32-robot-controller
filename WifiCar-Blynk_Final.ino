@@ -24,6 +24,12 @@ char auth[] = "<your token>";
 char ssid[] = "Tomato241";
 char pass[] = "tomato241";
 
+const int freq = 30000;
+const int pwmChannel = 0;
+const int pwmChanne2 = 1;
+const int resolution = 8;
+int dutyCycle = 200;
+
 BLYNK_WRITE(V1)
 {
   int x = param[0].asInt();
@@ -76,8 +82,8 @@ BLYNK_WRITE(V2)
 {
   int speed = param.asInt(); // assigning incoming value from pin V2 to a variable
     //speed =350;
-    ledcWrite(EN1, speed);//sets the motors speed
-    ledcWrite(EN2, speed);//sets the motors speed
+    ledcWrite(pwmChannel, speed);//sets the motors speed
+    ledcWrite(pwmChanne2, speed);//sets the motors speed
 
 }
 //------------------------
@@ -94,6 +100,15 @@ void setup()
     pinMode(inputPin3, OUTPUT);
     pinMode(inputPin4, OUTPUT);  
     pinMode(Ledpin, OUTPUT);
+  
+  
+  // configure LED PWM functionalitites
+  ledcSetup(pwmChannel, freq, resolution);
+  ledcSetup(pwmChanne2, freq, resolution);
+  
+  // attach the channel to the GPIO to be controlled
+  ledcAttachPin(EN1, pwmChannel);
+  ledcAttachPin(EN2, pwmChanne2);
   
   // Debug console
   Serial.begin(9600);
